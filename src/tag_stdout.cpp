@@ -121,7 +121,7 @@ void echo(int pipe_fd, std::ostream& sink,
  * Redirects the stdout and stderr to the pipes in pipe_array. Then
  * spawns a new process given by argv
  */
-void child(pipe_array& pipe_array, char* const* argv) {
+int child(pipe_array& pipe_array, char* const* argv) {
 	// Redirect Stdout and Stderr to the pipes in pipe_array
 	if (dup2(pipe_array[STDOUT][WRITE], STDOUT_FILENO) < 0) {
 		throw std::runtime_error("Failed to dup2 pipe stdout");
@@ -145,8 +145,9 @@ void child(pipe_array& pipe_array, char* const* argv) {
 	execvp(child_argv[0], child_argv);
 
 	// We only get here if there's an error
-	std::string estream(std::string(argv[0]) + std::string(" failed to run ") + std::string(argv[2]));
+	std::string estream(argv[0] + std::string(" failed to run ") + argv[2]);
 	perror(estream.c_str());
+	return 1;
 }
 
 
@@ -171,7 +172,7 @@ int main(int argc, char **argv) {
 
 	else if (pid == 0) {
 		//In the child process
-		child(pipe_array, argv);
+		return child(pipe_array, argv);
 	}
 
 	else {
