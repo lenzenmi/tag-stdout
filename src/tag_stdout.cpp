@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <string>
 #include <thread>
+#include <signal.h>
 
 
 // Convienience Types
@@ -177,6 +178,11 @@ int main(int argc, char **argv) {
 
 	else {
 		// In the parent process
+
+		// Block all signals so they are handled by the child process
+		sigset_t mask;
+		sigfillset(&mask);
+		sigprocmask(SIG_SETMASK, &mask, nullptr);
 
 		// Close child side of the pipes
 		for (auto& pipe_pair : pipe_array) {
