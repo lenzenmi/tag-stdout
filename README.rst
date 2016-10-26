@@ -1,3 +1,7 @@
+==========
+README.rst
+==========
+
 ``tag_stdout`` is a simple wrapper that adds a tag to the output of the process it runs. It reads in both stdout and stderr but only outputs to stdout. A marker is prepended to the tag to indicate if the line originally came from stdout or stderr.
 
 This is usefull for situations where you have multiple programs writing to the same terminal and you wish to know which program is responsible for each line of output.
@@ -80,4 +84,7 @@ Here's the same example with the output redirected to stdout
     [E]:my-tag: drwxr-xr-x   1 root root  156 Oct  2 18:28 usr
     [E]:my-tag: drwxr-xr-x   1 root root  146 Oct 14  2015 var
 
-    
+License
+=======
+
+GPLv3
