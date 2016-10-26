@@ -1,0 +1,5 @@
+/.cproject
+/.project
+/.settings
+bin/tag_stdout
+src/tag_stdout.o
